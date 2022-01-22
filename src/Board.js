@@ -1,5 +1,7 @@
 // @flow strict
 
+import React from "react";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -36,7 +38,11 @@ const letters = [
   "z",
 ];
 
-const Board = () => (
+type Props = {
+  board: $ReadOnlyArray<$ReadOnlyArray<string>>,
+};
+
+const Board = (props: Props): React$Element<any> => (
   <Container className="board" fluid="md">
     {[...Array(height).keys()].map((i) => (
       <Row className="row" key={`row-${i}`}>
