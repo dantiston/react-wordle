@@ -6,50 +6,18 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const width = 5;
-const height = 6;
-
-const letters = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-];
-
 type Props = {
   board: $ReadOnlyArray<$ReadOnlyArray<string>>,
 };
 
 const Board = (props: Props): React$Element<any> => (
   <Container className="board" fluid="md">
-    {[...Array(height).keys()].map((i) => (
+    {props.board.map((row, i) => (
       <Row className="row" key={`row-${i}`}>
-        {[...Array(width).keys()].map((j) => (
-          <Col key={`cell-${width * i + j}`}>
+        {row.map((value, j) => (
+          <Col key={`cell-${row.length * i + j}`}>
             <div className="cell">
-              {letters[(width * i + j) % letters.length]}
+              {value.toUpperCase()}
             </div>
           </Col>
         ))}

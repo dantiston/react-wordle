@@ -9,9 +9,13 @@
 .cell {
   margin: 5px;
   padding: 5px;
-  border: black solid 1px;
+  border: black solid 2px;
   height: 50px;
   max-width: 50px;
   font-size: 20pt;
   text-align: center;
+}
+
+.cell.error {
+  border: red solid 2px;
 }
