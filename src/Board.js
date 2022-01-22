@@ -1,4 +1,4 @@
-// @flow-strict
+// @flow strict
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
