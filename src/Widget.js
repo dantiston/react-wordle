@@ -11,13 +11,13 @@ import Form from "react-bootstrap/Form";
 import Immutable from "immutable";
 
 type Props = {
-  guess: $ReadOnlyArray<string>,
-  setGuess: ($ReadOnlyArray<string>) => void,
+  guess: Immutable.List<string>,
+  setGuess: (Immutable.List<string>) => void,
 };
 
 const Widget = (props: Props): React$Element<any> => {
   const [hasError, setHasError] = useState(
-    Immutable.List(Array(props.guess.length).fill(false))
+    Immutable.List(Array(props.guess.size).fill(false))
   );
   return (
     <Container className="board" fluid="md">
@@ -29,23 +29,26 @@ const Widget = (props: Props): React$Element<any> => {
               value={value.toUpperCase()}
               name={`char-${i}`}
               onKeyUp={(event) => {
-                event.preventDefault()
-                const nextSibling = document.querySelector(
-                  `input[name=char-${i + 1}]`
-                );
-                if (nextSibling != null) {
-                  nextSibling.focus();
+                event.preventDefault();
+                if (props.guess.get(i) != "") {
+                  const nextSibling = document.querySelector(
+                    `input[name=char-${i + 1}]`
+                  );
+                  if (nextSibling != null) {
+                    nextSibling.focus();
+                  }
                 }
               }}
               onChange={(event) => {
                 const newCharacter = event.target.value;
-                if (newCharacter.length != 2) {
+                if (newCharacter.length == 0) {
                   setHasError(hasError.set(i, true));
+                  props.setGuess(props.guess.set(i, ""));
                 } else {
                   setHasError(hasError.set(i, false));
-                  let newGuess = [...props.guess];
-                  newGuess[i] = newCharacter[newCharacter.length - 1];
-                  props.setGuess(newGuess);
+                  props.setGuess(
+                    props.guess.set(i, newCharacter[newCharacter.length - 1])
+                  );
                 }
               }}
             />
